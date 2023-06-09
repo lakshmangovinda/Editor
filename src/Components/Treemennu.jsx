@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as FaIcons from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 const TreeNode = ({ node, onAddChild, onRemoveChild }) => {
     let navigate = useNavigate();
+
     const [isExpanded, setIsExpanded] = useState(false);
     const [name, Setname] = useState('default')
     const handlName = (event) => {
@@ -12,6 +13,7 @@ const TreeNode = ({ node, onAddChild, onRemoveChild }) => {
 
     const handleAddChild = () => {
         onAddChild(node, name);
+
     };
 
     const handleRemoveChild = () => {
@@ -33,15 +35,12 @@ const TreeNode = ({ node, onAddChild, onRemoveChild }) => {
                     {node.label}
                 </span>
                 <div>
-
                 </div>
                 <div className="d-flex gap-4 justify-content-between align-items-end" style={{ width: "80px" }} >
                     <FaIcons.FaPlus style={{ color: "grey" }} className="dropdown" data-bs-toggle="dropdown" aria-expanded="false" />
                     <ul className="dropdown-menu">
                         <input type="text" onChange={handlName} className="form-control"  ></input>
                         <button className="btn btn-transparent" onClick={handleAddChild}>ok</button>
-
-
                     </ul>
                     <FaIcons.FaMinus onClick={handleRemoveChild} style={{ color: "grey" }} />
                     <FaIcons.FaCopy style={{ color: "grey" }} />
@@ -72,8 +71,18 @@ const TreeMenu = () => {
         label: "Container",
         children: [],
     });
+    useEffect(() => {
+        console.log(localStorage.getItem('Tree'))
+        let db = localStorage.getItem('Tree')
+        let parsedJson = JSON.parse(db)
+        if (parsedJson) {
+            setTree(parsedJson);
+        }
+
+    }, [])
 
     const handleAddChild = (parentNode, name) => {
+
         const childName = name
         if (!childName) return; // If the user cancels or leaves the input empty, do nothing
         const newChild = {
@@ -89,6 +98,7 @@ const TreeMenu = () => {
 
         const updatedTree = updateNode(tree, updatedParent);
         setTree(updatedTree);
+        localStorage.setItem('Tree', JSON.stringify(updatedTree))
     };
 
     const handleRemoveChild = (parentNode) => {
@@ -105,6 +115,8 @@ const TreeMenu = () => {
 
         const updatedTree = updateNode(tree, updatedParent);
         setTree(updatedTree);
+        console.log(updatedTree)
+        localStorage.setItem('Tree', JSON.stringify(updatedTree))
     };
 
     const updateNode = (parentNode, updatedNode) => {

@@ -21,7 +21,6 @@ const Edit = () => {
     else {
       SetNotes('')
     }
-    console.log('sdsd')
 
   }, [params.id])
   const handleChange = (event) => {
@@ -50,21 +49,20 @@ const Edit = () => {
       <div className="d-flex justify-content-center align-items-start flex-column " >
         <h2 className="display ">Make your notes.</h2>
         <p className="">Make your notes... </p>
-        
-          <h2 className="display-4">{params.label}</h2>
-        
+
+        <h2 className="display-4">{params.label}</h2>
+
       </div>
-      {params?.id ?
+      {params.id ?
         <>
           <button disabled={notes.length < 2} className="btn btn-transparent" onClick={handleNotes}>save</button><button className="btn btn-transparent" onClick={handleClear}>clear</button>
           <Editor style={{ border: "", width: "50vw", height: "20vh", padding: "20px", overflow: "auto", outline: "none", boxShadow: "2px 1px 13px 2px grey" }}
             text={notes}
-            placeholder="text"
             onChange={handleChange} />
 
         </>
 
-        : ""}
+        : <div></div>}
 
 
     </div>

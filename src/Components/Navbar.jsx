@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import TreeMenu from './Treemennu';
@@ -9,8 +9,16 @@ import { Dropdown } from 'react-bootstrap';
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
+  let navigate = useNavigate();
 
-  const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = () => {
+    
+    setSidebar(!sidebar)
+    navigate({
+      pathname: '',
+      search: '',
+  });
+  };
 
   return (
     <>
@@ -26,11 +34,8 @@ function Navbar() {
             </div>
           </div>
           <div className='navbar-item2'>
-
             <p><FaIcons.FaUserPlus style={{ color: "grey", fontSize: "1rem" }} />Invite Team Members</p>
             <FaIcons.FaRegBell style={{ color: "grey", height: "1rem" }} />
-
-
             <Dropdown>
               <Dropdown.Toggle variant='' style={{ borderRadius: "35px" }} >
                 <FaIcons.FaUserCircle style={{ color: "grey", fontSize: "2rem" }}></FaIcons.FaUserCircle>
