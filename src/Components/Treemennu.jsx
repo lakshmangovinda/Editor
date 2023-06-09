@@ -4,31 +4,45 @@ import { useNavigate } from "react-router-dom";
 const TreeNode = ({ node, onAddChild, onRemoveChild }) => {
     let navigate = useNavigate();
     const [isExpanded, setIsExpanded] = useState(false);
+    const [name, Setname] = useState('default')
+    const handlName = (event) => {
+
+        Setname(event.target.value)
+    }
 
     const handleAddChild = () => {
-        onAddChild(node);
+        onAddChild(node, name);
     };
 
     const handleRemoveChild = () => {
         onRemoveChild(node);
     };
     const handleroute = (label) => {
-
-        navigate(`/edit/${label}`)
+        navigate({
+            pathname: '',
+            search: `?label=${node.label}&id=${label.id}`,
+        });
     }
 
     return (
-        <div style={{ width: "250px", marginTop: "30px" }}  >
-            <div className="d-flex justify-content-between  align-items-center " onClick={() => handleroute(node.label)}>
+        <div style={{ width: "250px", marginTop: "20px" }}  >
+
+            <div className="d-flex  gap-4  align-items-center " >
+                <span onClick={() => setIsExpanded(!isExpanded)}>{isExpanded ? <FaIcons.FaSortDown style={{ color: "grey" }} /> : <FaIcons.FaCaretRight style={{ color: "grey" }} />}</span>
+                <span onClick={() => handleroute(node)}>
+                    {node.label}
+                </span>
                 <div>
-                    <span onClick={() => setIsExpanded(!isExpanded)}>
-                        {isExpanded ? <FaIcons.FaSortDown style={{ color: "grey" }} /> : <FaIcons.FaCaretRight style={{ color: "grey" }} />}
-                        {node.label}
-                    </span>
 
                 </div>
-                <div className="d-flex gap-4  align-items-center" style={{ width: "100px" }} >
-                    <FaIcons.FaPlus onClick={handleAddChild} style={{ color: "grey" }} />
+                <div className="d-flex gap-4 justify-content-between align-items-end" style={{ width: "80px" }} >
+                    <FaIcons.FaPlus style={{ color: "grey" }} className="dropdown" data-bs-toggle="dropdown" aria-expanded="false" />
+                    <ul className="dropdown-menu">
+                        <input type="text" onChange={handlName} className="form-control"  ></input>
+                        <button className="btn btn-transparent" onClick={handleAddChild}>ok</button>
+
+
+                    </ul>
                     <FaIcons.FaMinus onClick={handleRemoveChild} style={{ color: "grey" }} />
                     <FaIcons.FaCopy style={{ color: "grey" }} />
                 </div>
@@ -42,9 +56,9 @@ const TreeNode = ({ node, onAddChild, onRemoveChild }) => {
                             node={childNode}
                             onAddChild={onAddChild}
                             onRemoveChild={onRemoveChild}
-                            onClick={() => console.log("logged")}
+
                         />
-                        
+
                     ))}
                 </div>
             )}
@@ -55,12 +69,12 @@ const TreeNode = ({ node, onAddChild, onRemoveChild }) => {
 const TreeMenu = () => {
     const [tree, setTree] = useState({
         id: 1,
-        label: "Root",
+        label: "Container",
         children: [],
     });
 
-    const handleAddChild = (parentNode) => {
-        const childName = prompt("Enter the name of the child node:");
+    const handleAddChild = (parentNode, name) => {
+        const childName = name
         if (!childName) return; // If the user cancels or leaves the input empty, do nothing
         const newChild = {
             id: Date.now(),

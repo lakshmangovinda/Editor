@@ -27,54 +27,54 @@
     width: 200px;
     height: 100vh;
     display: flex;
-    justify-content: center;
     position: fixed;
     top: 0;
-    left: -100%;
-    transition: 850ms;
-  
-    
+    left: -25%;
+    transition: 200ms;
+
+
 }
 
-.navbar-item2{
-  
+.navbar-item2 {
+
     height: 80px;
     display: flex;
 
     align-items: center;
     flex-direction: row;
     float: right;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 20vw;
 }
-.navbar-item1{
-  
+
+.navbar-item1 {
+
     height: 80px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
-    width: 75vw;
+    width: 30vw;
 }
+
 .nav-menu-items {
     list-style: none;
     height: 100vh;
     overflow-y: scroll;
-    
-    overflow-x: hidden;
-   
+    overflow-x: scroll;
+    border-right: 1px solid grey;
 }
 
 .nav-menu.active {
     left: 0;
-    transition: 350ms;
+    transition: 200ms;
 }
 
 .nav-text {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 8px 0px 8px 16px;
+    padding: 8px 0px 8px 8px;
     list-style: none;
     height: 60px;
 }
@@ -91,14 +91,11 @@
     border-radius: 4px;
 }
 
-.nav-text a:hover {
-    background-color: #1a83ff;
+p:hover {
+    color: #040404;
+    background-color: #fefdfd;
 }
 
-.nav-menu-items {
-    width: 80vw;
-    
-}
 
 .navbar-toggle {
     background-color: white;
@@ -127,6 +124,16 @@
     padding: 20px 0;
 }
 
+.menu:hover{
+    color:#040404;
+    border-bottom: 2px solid red;
+
+
+}
+.nav :focus, .nav:hover {
+    text-decoration: none;
+    background-color: transparent !important;
+}
 .group-icon {
     background-color: #fff;
     border: 0;
@@ -138,10 +145,18 @@
     outline: none;
     height: 2rem;
     margin-top: 0;
-    border-radius: 25px;
+    border-radius: 30px;
 }
-input[type=text]:focus{
+
+input[type=text] {
+
+    border-radius: 30px;
+
+    outline: none;
+}
+
+/* input[type=text]:focus {
     box-shadow: 1px 2px 2px rgb(145, 167, 172);
-    border-radius: 25px;
+    border-radius: 30px;
     border: 1px solid rgb(166, 195, 203);
-  }
+} */
